@@ -40,7 +40,7 @@ void HashTable::resize(){
   this->table = newTable;
 }
 
-int HashTable::add(string key,int value){
+string HashTable::add(string key,string value){
   if(this->size >= this->m-1 || (this->size+0.0)/(this->m) >= 0.75){
     this->resize();
   }
@@ -49,20 +49,23 @@ int HashTable::add(string key,int value){
     if(this->table[i]==NULL){
       this->table[i] = new Vertice(key,value);
       this->size++;
-      break;
+      string saved = this->table[i]->value;
+      // cout << "_saved: "<< saved << endl;
+      return saved;
     }
     else if(this->table[i]->key == key){
-      int saved = this->table[i]->value;
       this->table[i]->value = value;
+      string saved = this->table[i]->value;
+      // cout << "_updated: "<< saved << endl;
       return saved;
     }
   }
 }
 
-int HashTable::remove(string key){
+string HashTable::remove(string key){
   int pos = this->hash(key);
   int freeSpace = -1;
-  int removed = 0;
+  string removed = 0;
   for(int i=pos; this->table[i]!=NULL; i=(++i)%this->m){
     if(this->table[i]->key==key){
       removed = this->table[i]->value;
@@ -79,18 +82,20 @@ int HashTable::remove(string key){
   }
 }
 
-int HashTable::getValue(string key){
+string HashTable::getPassword(string key){
   int pos = this->hash(key);
-  for(Vertice* v=this->table[pos]; v!=NULL; v=this->table[(pos++)%this->m]){
-    if(v->key==key){
-      return v->value;
+  for(string k; this->table[pos]!=NULL; k=this->table[(++pos)%this->m]->key){
+    k=this->table[pos]->key;
+    if(k==key){
+      return this->table[pos]->value;
     }
   }
-  return -1;
+  // cout << "not found" << endl;
+  return "";
 }
 
 bool HashTable::contains(string key){
-  return this->getValue(key)!=-1;
+  return this->getPassword(key)!="";
 }
 
 bool HashTable::isEmpty() const{
@@ -111,19 +116,18 @@ void HashTable::clear(){
 /*
 // possible use case:
 int main(){
-  HashTable *t = new HashTable();
-  cout << t->contains("uno") << endl;
-  cout << "isempty " << t->isEmpty() << endl;
-  cout << "size " << t->getSize() << endl;
-  t->add("uno",126);
-  cout << "size " << t->getSize() << endl;
-  cout << "isempty " << t->isEmpty() << endl;
-  cout << t->contains("uno") << endl;
-  cout << t->getValue("uno") << endl;
-  t->add("dos",156);
-  t->clear();
-  cout << "size " << t->getSize() << endl;
-  cout << "isempty " << t->isEmpty() << endl;
-
-  return 0;
-}*/
+  HashTable *tab = new HashTable();
+  tab->clear();
+  cout << "contains maria: " << tab->contains("maria") << endl;
+  cout << "value maria: " << tab->getPassword("maria") << endl << endl;
+  cout << "ADDED " << tab->add("maria","pan") << endl;
+  cout << "contains maria: " << tab->contains("maria") << endl;
+  cout << "value maria: " << tab->getPassword("maria") << endl << endl;
+  cout << "ADDED " << tab->add("peter","book") << endl;
+  cout << "contains juan: " << tab->contains("peter") << endl;
+  cout << "value juan: " << tab->getPassword("peter") << endl << endl;
+  cout << "ADDED " << tab->add("fran","jazz") << endl;
+  cout << "contains fran: " << tab->contains("fran") << endl;
+  cout << "value fran: " << tab->getPassword("fran") << endl << endl;
+}
+*/

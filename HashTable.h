@@ -12,9 +12,9 @@ public:
   HashTable();
   HashTable(int capacity);
   ~HashTable();
-  int add(string key,int value);
-  int remove(string key);
-  int getValue(string key);
+  string add(string key,string value);
+  string remove(string key);
+  string getPassword(string key);
   bool contains(string key);
   bool isEmpty() const;
   int getSize() const;

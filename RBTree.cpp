@@ -1,7 +1,5 @@
 #include <iostream>
 #include <stdlib.h>
-#include <time.h>
-#include <fstream>
 
 using namespace std;
 
@@ -10,6 +8,7 @@ const bool BLACK = 1;
 
 struct Node{
   int key;
+  int value;
   bool color;
   Node *right, *left, *parent;
 
@@ -62,6 +61,19 @@ class RedBlackTree{
       if(node->left != NULL) {
         inOrder(node->left, mul+1);
       }
+    }
+
+    int get(int key){
+      Node *temp = this->root;
+      while(temp!=NULL){
+        if(key>temp->key)
+          temp = temp->right;
+        else if(key<temp->key)
+          temp = temp->left;
+        else
+          return temp->value;
+      }
+      return -1;
     }
 
     void insert(int key){
@@ -185,33 +197,8 @@ void randomArray(int *a, int n){
 }
 
 int main(){
-  srand(time(NULL));
-  cout << rand()%3+1 << endl;
-  int n = 10;
-  int values[n];
-  randomArray(values,n);
-  for(int j=0; j<n; j++){
-    cout << "a["<<j<<"]:" << values[j] << endl;
-  }
-
-  ofstream output;
-  output.open("timeComplexities.txt");
-
-  for (int n = 100; n < 1000; n ++) {
-    int values[n];
-    randomArray(values, n);
-
-    clock_t start = clock();
-    RedBlackTree *tree = new RedBlackTree();
-    for (int i = 0; i < n; i++) {
-      tree->insert(values[i]);
-    }
-
-    output << n << " " << clock() - start << " " << n << " "<< log(n) / log(2) << endl;
-
-    delete(tree);
-  }
-  output.close();
+  RedBlackTree *t = new RedBlackTree();
+  t->insert(5);
 
   return 0;
 }

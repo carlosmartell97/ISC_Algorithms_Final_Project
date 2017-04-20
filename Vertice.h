@@ -4,9 +4,9 @@
 class Vertice{
 public:
   string key;
-  int value;
+  string value;
   Vertice();
-  Vertice(string key,int value);
+  Vertice(string key,string value);
 };
 
 #endif
