@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
-#include "Vertice.cpp"
 #include "Arista.h"
+
+Arista::Arista(Vertice amigo){
+  this->amigo = amigo;
+  this->interaccion = 0;
+}
 
 Arista::Arista(Vertice amigo,int interaccion){
   this->amigo = amigo;
