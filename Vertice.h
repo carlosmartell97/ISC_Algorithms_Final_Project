@@ -11,7 +11,7 @@ public:
   Vertice();
   Vertice(string key,string value);
   ~Vertice();
-  // Vertice addFriend(Vertice* amigo,int interaccion);
+  /*Vertice**/void addFriend(Vertice* amigo,int interaccion);
 };
 
 #endif

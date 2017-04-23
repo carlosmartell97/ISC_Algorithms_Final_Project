@@ -1,7 +1,3 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include "Vertice.cpp"
 #include "HashTable.h"
 
 HashTable::HashTable(){
@@ -23,7 +19,7 @@ HashTable::~HashTable(){
     delete this->table[i];
   }
   this->clear();
-  cout << "table destroyed." << endl;
+  cout << "\n\n\n--------------END OF PROGRAM. DATABASE DESTROYED-----------------------" << endl;
 }
 
 int HashTable::hash(string key){
@@ -49,17 +45,26 @@ string HashTable::add(string key,string value){
     if(this->table[i]==NULL){
       this->table[i] = new Vertice(key,value);
       this->size++;
-      string saved = this->table[i]->value;
+      string saved = this->table[i]->key;
       // cout << "_saved: "<< saved << endl;
       return saved;
     }
     else if(this->table[i]->key == key){
       this->table[i]->value = value;
-      string saved = this->table[i]->value;
+      string saved = this->table[i]->key;
       // cout << "_updated: "<< saved << endl;
       return saved;
     }
   }
+}
+
+void HashTable::makeFriends(Vertice* person,Vertice* person2,int inter){
+  this->makeFriends(person,person2,inter,inter);
+}
+
+void HashTable::makeFriends(Vertice* person,Vertice* person2,int inter,int inter2){
+  person->addFriend(person2,inter);
+  person2->addFriend(person,inter2);
 }
 
 string HashTable::remove(string key){
@@ -80,6 +85,18 @@ string HashTable::remove(string key){
     }
   return removed;
   }
+}
+
+Vertice* HashTable::getUser(string key){
+  int pos = this->hash(key);
+  for(string k; this->table[pos]!=NULL; k=this->table[(++pos)%this->m]->key){
+    k=this->table[pos]->key;
+    if(k==key){
+      return this->table[pos];
+    }
+  }
+  cout << "not found" << endl;
+  return NULL;
 }
 
 string HashTable::getPassword(string key){
@@ -112,22 +129,3 @@ void HashTable::clear(){
   }
   this->size = 0;
 }
-
-/*
-// possible use case:
-int main(){
-  HashTable *tab = new HashTable();
-  tab->clear();
-  cout << "contains maria: " << tab->contains("maria") << endl;
-  cout << "value maria: " << tab->getPassword("maria") << endl << endl;
-  cout << "ADDED " << tab->add("maria","pan") << endl;
-  cout << "contains maria: " << tab->contains("maria") << endl;
-  cout << "value maria: " << tab->getPassword("maria") << endl << endl;
-  cout << "ADDED " << tab->add("peter","book") << endl;
-  cout << "contains juan: " << tab->contains("peter") << endl;
-  cout << "value juan: " << tab->getPassword("peter") << endl << endl;
-  cout << "ADDED " << tab->add("fran","jazz") << endl;
-  cout << "contains fran: " << tab->contains("fran") << endl;
-  cout << "value fran: " << tab->getPassword("fran") << endl << endl;
-}
-*/
