@@ -20,5 +20,6 @@ Vertice::Vertice(string key,string value){
 /*Vertice**/void Vertice::addFriend(Vertice* amigo,int interaccion){
   this->amigos.push_back(amigo);
   this->interacciones.push_back(interaccion);
+  this->interaccionesTotal += interaccion;
   // return this->amigos[this->amigos.size()];
 }

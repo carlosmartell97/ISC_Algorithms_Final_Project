@@ -5,6 +5,7 @@ class Vertice{
 public:
   string key;
   string value;
+  double interaccionesTotal;
   vector<Vertice*> amigos;
   vector<int> interacciones;
   // deque<Vertice> history;

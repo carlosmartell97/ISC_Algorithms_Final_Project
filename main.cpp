@@ -55,7 +55,7 @@ int main(){
   cout << "-------------------------------" << endl;*/
 
   cout << "\n\n\n--------------RECOMMENDING PEOPLE TO USERS-----------------------" << endl;
-  u = "fernanda";
+  u = "carlos";
   vector<Recommendation> userR = recommend(users->getUser(u));
   cout << endl << u << " recommendations:" << endl;
   for(int i=0; i<userR.size(); i++){

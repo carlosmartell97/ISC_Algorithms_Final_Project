@@ -71,7 +71,7 @@ string HashTable::remove(string key){
   int pos = this->hash(key);
   int freeSpace = -1;
   string removed = 0;
-  for(int i=pos; this->table[i]!=NULL; i=(++i)%this->m){
+  for(int i=pos, count=0; this->table[i]!=NULL && count<this->m; i=(++i)%this->m, count++){
     if(this->table[i]->key==key){
       removed = this->table[i]->value;
       this->table[i]=NULL;
@@ -89,7 +89,8 @@ string HashTable::remove(string key){
 
 Vertice* HashTable::getUser(string key){
   int pos = this->hash(key);
-  for(string k; this->table[pos]!=NULL; k=this->table[(++pos)%this->m]->key){
+  int count = 0;
+  for(string k; this->table[pos]!=NULL && count<this->m; k=this->table[(++pos)%this->m]->key, count++){
     k=this->table[pos]->key;
     if(k==key){
       return this->table[pos];
@@ -101,7 +102,8 @@ Vertice* HashTable::getUser(string key){
 
 string HashTable::getPassword(string key){
   int pos = this->hash(key);
-  for(string k; this->table[pos]!=NULL; k=this->table[(++pos)%this->m]->key){
+  int count = 0;
+  for(string k; this->table[pos]!=NULL && count<this->m; k=this->table[(++pos)%this->m]->key, count++){
     k=this->table[pos]->key;
     if(k==key){
       return this->table[pos]->value;
