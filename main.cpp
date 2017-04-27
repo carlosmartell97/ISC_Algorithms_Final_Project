@@ -3,6 +3,7 @@
 #include <vector>
 #include "Vertice.cpp"
 #include "HashTable.cpp"
+#include <map>
 #include "Grafo.cpp"
 using namespace std;
 
@@ -62,16 +63,19 @@ int main(){
     cout << "\t" << userR[i].person->key << "," << userR[i].totalInteractions << endl;
   }
   if(userR.size()==0) cout << "\tNONE" << endl;
-  cout << "_______________________________" << endl;
+  cout << "_________________________________________" << endl;
 
 
+  if(userR.size()!=0){
   vector<Recommendation> user2R = recommend(userR[0].person);
   cout << endl << userR[0].person->key << " recommendations:" << endl;
   for(int i=0; i<user2R.size(); i++){
     cout << "\t" << user2R[i].person->key << "," << user2R[i].totalInteractions << endl;
   }
-  if(user2R.size()==0) cout << "\tNONE" << endl;
-  cout << "_______________________________" << endl;
+  } else{
+    cout << "\tno further recommendation origins..." << endl;
+  }
+  cout << "_________________________________________" << endl;
 
   delete users;
   return 0;
