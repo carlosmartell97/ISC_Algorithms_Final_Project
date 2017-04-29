@@ -77,6 +77,8 @@ int main(){
   }
   cout << "_________________________________________" << endl;
 
+  users->degreesOfSeparation(6);
+
   delete users;
   return 0;
 }

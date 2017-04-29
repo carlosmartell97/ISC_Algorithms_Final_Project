@@ -38,7 +38,7 @@ vector<Recommendation> recommend(Vertice *origin){
       }
     }
   }
-  cout << "size: " << toLookForInMap.size() << endl;
+  // cout << "size: " << toLookForInMap.size() << endl;
   for(int i=0; i<toLookForInMap.size(); i++){
     Recommendation *found = new Recommendation(toLookForInMap[i],friendsOfFriends[toLookForInMap[i]->key]);
     recommendations.push_back(*found);

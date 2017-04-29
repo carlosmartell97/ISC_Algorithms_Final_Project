@@ -6,6 +6,7 @@ private:
   int m;
   int size;
   vector<Vertice*> table;
+  vector<int> usedIndexesInTable;
   int hash(string key);
   void resize();
 public:
@@ -18,6 +19,8 @@ public:
   string remove(string key);
   Vertice* getUser(string key);
   string getPassword(string key);
+  bool degreesOfSeparation(int separation);
+  int shortestPath(Vertice* origin,Vertice* end);
   bool contains(string key);
   bool isEmpty() const;
   int getSize() const;

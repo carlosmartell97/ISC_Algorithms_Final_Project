@@ -23,7 +23,7 @@ HashTable::~HashTable(){
 }
 
 int HashTable::hash(string key){
-  return ((long)&key * this->m)%this->m;
+  return abs((long)&key * this->m)%this->m;
 }
 
 void HashTable::resize(){
@@ -46,6 +46,7 @@ string HashTable::add(string key,string value){
       this->table[i] = new Vertice(key,value);
       this->size++;
       string saved = this->table[i]->key;
+      usedIndexesInTable.push_back(i);
       // cout << "_saved: "<< saved << endl;
       return saved;
     }
@@ -111,6 +112,28 @@ string HashTable::getPassword(string key){
   }
   // cout << "not found" << endl;
   return "";
+}
+
+bool HashTable::degreesOfSeparation(int separation){
+  cout << "\n\n\n--------------TESTING FOR "<<separation<<" DEGREES OF SEPARATION-----------------------" << endl;
+  for(int i=0; i<this->usedIndexesInTable.size(); i++){
+    cout << "route between " << this->table[this->usedIndexesInTable[i]]->key << endl;
+    for(int j=i+1; j<this->usedIndexesInTable.size(); j++){
+      cout << "\tand " << this->table[this->usedIndexesInTable[j]]->key << flush;
+      int distance = shortestPath(this->table[this->usedIndexesInTable[j]],this->table[this->usedIndexesInTable[j]]);
+      cout << ": " << distance << endl;
+      if(distance>separation)
+        return false;
+    }
+    if(i+1==this->usedIndexesInTable.size())
+      cout << "\t...and NONE" << endl;
+  }
+  return true;
+}
+
+int HashTable::shortestPath(Vertice* origin, Vertice* end){
+  // Dijkstra(greedy) o Bellman-Ford(dynamic)
+  return 0;
 }
 
 bool HashTable::contains(string key){
