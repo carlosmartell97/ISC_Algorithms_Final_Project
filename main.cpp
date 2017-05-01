@@ -2,6 +2,9 @@
 #include <string>
 #include <vector>
 #include "Vertice.cpp"
+#include <queue>
+#include <limits.h>
+// #include <cstdio>
 #include "HashTable.cpp"
 #include <map>
 #include "Grafo.cpp"
@@ -77,7 +80,13 @@ int main(){
   }
   cout << "_________________________________________" << endl;
 
-  users->degreesOfSeparation(6);
+  string text;
+  int degrees = 6;
+  bool prove = users->degreesOfSeparation(degrees);
+  if(prove) text = "TRUE";
+  else text = "FALSE";
+  // users->printUsersPosition();
+  cout << endl << "theory of " << degrees << " degrees of separation theory is " << text << endl;
 
   delete users;
   return 0;
