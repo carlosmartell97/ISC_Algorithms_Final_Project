@@ -5,13 +5,15 @@ class Vertice{
 public:
   string key;
   string value;
+  double interaccionesTotal;
+  int positionInTable;
   vector<Vertice*> amigos;
   vector<int> interacciones;
   // deque<Vertice> history;
   Vertice();
-  Vertice(string key,string value);
+  Vertice(string key,string value,int position);
   ~Vertice();
-  // Vertice addFriend(Vertice* amigo,int interaccion);
+  /*Vertice**/void addFriend(Vertice* amigo,int interaccion);
 };
 
 #endif

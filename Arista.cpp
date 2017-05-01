@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "Arista.h"
 
 Arista::Arista(Vertice amigo){

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdlib.h>
 
 using namespace std;
@@ -196,9 +195,9 @@ void randomArray(int *a, int n){
   }
 }
 
-int main(){
+/*int main(){
   RedBlackTree *t = new RedBlackTree();
   t->insert(5);
 
   return 0;
-}
+}*/

@@ -1,5 +1,3 @@
-#include <vector>
-#include <string>
 #include "Vertice.h"
 
 Vertice::Vertice(){
@@ -14,16 +12,15 @@ Vertice::~Vertice(){
   this->interacciones.clear();
 }
 
-Vertice::Vertice(string key,string value){
+Vertice::Vertice(string key,string value,int position){
   this->key = key;
   this->value = value;
+  this->positionInTable = position;
 }
 
-/*Vertice Vertice::addFriend(Vertice* amigo,int interaccion){
-  // Vertice *newVert = new Vertice(amigo->key,amigo->value);
-  // this->amigos.push_back(*newVert);
-  this->amigos.push_back(*amigo);
+/*Vertice**/void Vertice::addFriend(Vertice* amigo,int interaccion){
+  this->amigos.push_back(amigo);
   this->interacciones.push_back(interaccion);
-
+  this->interaccionesTotal += interaccion;
   // return this->amigos[this->amigos.size()];
-}*/
+}
