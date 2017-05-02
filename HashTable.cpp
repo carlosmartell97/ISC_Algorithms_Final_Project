@@ -127,7 +127,7 @@ bool HashTable::degreesOfSeparation(int separation){
       cout << endl;
       int distance = Dijkstra(this->table[this->usedIndexesInTable[i]],this->table[this->usedIndexesInTable[j]],this->usedIndexesInTable[i],this->usedIndexesInTable[j],this->usedIndexesInTable.size());
       if(distance>separation){
-        cout << endl << endl << "theory is false because shortest path between " << this->table[this->usedIndexesInTable[i]]->key << " and " << this->table[this->usedIndexesInTable[j]]->key << " is " << distance << endl;
+        cout << endl << endl << "degrees between " << this->table[this->usedIndexesInTable[i]]->key << " and " << this->table[this->usedIndexesInTable[j]]->key << " is " << distance << flush;
         return false;
       }
     }
@@ -206,7 +206,7 @@ int HashTable::Dijkstra(Vertice* origin, Vertice* end,int indexOrigin,int indexE
 }
 
 void HashTable::printUsersPosition(){
-  cout << "\n\n\n--------------CURRENT USER POSITIONS-----------------------" << endl;
+  // cout << "\n\n--------------CURRENT USER POSITIONS-----------------------" << endl;
   for(int i=0; i<this->usedIndexesInTable.size(); i++){
     cout << this->usedIndexesInTable[i] << ": " << this->table[this->usedIndexesInTable[i]]->key << "\t" << endl;
   }

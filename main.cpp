@@ -54,8 +54,10 @@ int main(){
   cout << "ADDED " << users->add(u,"Thunder!") << ": " << flush; cout << users->getPassword(u) << endl;
   u = "emilio";
   cout << "ADDED " << users->add(u,"Freedom") << ": " << flush; cout << users->getPassword(u) << endl;
+  // cout << "_________________________________________" << endl;
 
-  // cout << "\n\n\n--------------ADDING FRIENDSHIPS BETWEEN USERS-----------------------" << endl;
+  cout << "\n\n--------------ADDING FRIENDSHIPS BETWEEN USERS-----------------------" << endl;
+  cout << "ADDED several friendships..." << endl;
   users->makeFriends(users->getUser("carlos"),users->getUser("juan"),2,0);
   users->makeFriends(users->getUser("carlos"),users->getUser("maria"),4,5);
   users->makeFriends(users->getUser("juan"),users->getUser("maria"),0);
@@ -82,6 +84,8 @@ int main(){
   users->makeFriends(users->getUser("juan"),users->getUser("emilio"),4,7);
   users->makeFriends(users->getUser("emilio"),users->getUser("hugo"),8,0);
 
+  // cout << "_________________________________________" << endl;
+
   /*u = "carlos";
   cout << u << " friends:" << endl;
   for(int i=0; i<users->getUser(u)->amigos.size(); i++){
@@ -94,37 +98,63 @@ int main(){
   }
   cout << "-------------------------------" << endl;*/
 
-  cout << "\n\n\n--------------RECOMMENDING PEOPLE TO USERS-----------------------" << endl;
-  u = "carlos";
-  vector<Recommendation> userR = recommend(users->getUser(u));
-  cout << endl << u << " recommendations:" << endl;
-  for(int i=0; i<userR.size(); i++){
-    cout << "\t" << userR[i].person->key << "," << userR[i].totalInteractions << endl;
-  }
-  if(userR.size()==0) cout << "\tNONE" << endl;
-  cout << "_________________________________________" << endl;
-
-
-  if(userR.size()!=0){
-  vector<Recommendation> user2R = recommend(userR[0].person);
-  cout << endl << userR[0].person->key << " recommendations:" << endl;
-  for(int i=0; i<user2R.size(); i++){
-    cout << "\t" << user2R[i].person->key << "," << user2R[i].totalInteractions << endl;
-  }
-  } else{
-    cout << "\tno further recommendation origins..." << endl;
-  }
-  cout << "_________________________________________" << endl;
-
   string text;
-  int degrees = 6;
-  bool prove = users->degreesOfSeparation(degrees);
-  if(prove) text = "TRUE";
-  else text = "FALSE";
-  cout << endl << "theory of " << degrees << " degrees of separation is " << text << endl;
+  string action,stringParameter,stringParameter2;
+  int intParameter,intParameter2;
+  while(true){
+    cout << "\n\nWhat do you want to do?" << endl;
+    cin >> action;
 
-  // users->printUsersPosition();
-
+    if(action == "exit" || action == "end")
+      break;
+    else if(action == "degrees"){
+      cin >> intParameter;
+      bool prove = users->degreesOfSeparation(intParameter);
+      if(prove) text = "TRUE";
+      else text = "FALSE";
+      cout << endl << "theory of " << intParameter << " degrees of separation is " << text << endl;
+    }
+    else if(action == "recommend"){
+      cin >> stringParameter;
+      // if(users->contains(stringParameter)){
+        vector<Recommendation> userR = recommend(users->getUser(stringParameter));
+        cout << endl << stringParameter << " recommendations:" << endl;
+        for(int i=0; i<userR.size(); i++){
+          cout << userR[i].person->key << "," << userR[i].totalInteractions << endl;
+        }
+        if(userR.size()==0) cout << "NONE" << endl;
+      // }
+      // else
+        // cout << "user doesn't exist" << endl;
+    }
+    else if(action == "friends"){
+      cin >> stringParameter;
+      cin >> stringParameter2;
+      cin >> intParameter;
+      cin >> intParameter2;
+      users->makeFriends(users->getUser(stringParameter),users->getUser(stringParameter2),intParameter,intParameter2);
+      cout << stringParameter << " and " << stringParameter2 << " are now friends" << endl;
+    }
+    else if(action == "interact"){
+      cin >> stringParameter;
+      cin >> stringParameter2;
+      cin >> intParameter;
+      for(int i=0; i<users->getUser(stringParameter)->amigos.size(); i++){
+        if(users->getUser(stringParameter)->amigos[i]->key == stringParameter2){
+          users->getUser(stringParameter)->interacciones[i] += intParameter;
+          cout << "updated " << stringParameter << "'s friendship with " << users->getUser(stringParameter)->amigos[i]->key << endl;
+        }
+      }
+    }
+    else if(action == "print"){
+      cin >> stringParameter;
+      if(stringParameter == "users")
+        users->printUsersPosition();
+    }
+    else{
+      cout << "unrecognized command" << endl;
+    }
+  }
   delete users;
   return 0;
 }
