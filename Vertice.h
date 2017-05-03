@@ -9,6 +9,7 @@ public:
   int positionInTable;
   vector<Vertice*> amigos;
   vector<int> interacciones;
+  map<string,int> knownShortestPaths;
   // deque<Vertice> history;
   Vertice();
   Vertice(string key,string value,int position);

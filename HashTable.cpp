@@ -119,20 +119,24 @@ string HashTable::getPassword(string key){
 }
 
 bool HashTable::degreesOfSeparation(int separation){
-  cout << "\n\n\n--------------TESTING FOR "<<separation<<" DEGREES OF SEPARATION-----------------------" << endl;
+  // cout << "\n\n\n--------------TESTING FOR "<<separation<<" DEGREES OF SEPARATION-----------------------" << endl;
   for(int i=0; i<this->usedIndexesInTable.size(); i++){
-    cout << "route between " << this->table[this->usedIndexesInTable[i]]->key << endl;
+    // cout << "route between " << this->table[this->usedIndexesInTable[i]]->key << endl;
     for(int j=i+1; j<this->usedIndexesInTable.size(); j++){
-      cout << "\tand " << this->table[this->usedIndexesInTable[j]]->key << flush;
-      cout << endl;
-      int distance = Dijkstra(this->table[this->usedIndexesInTable[i]],this->table[this->usedIndexesInTable[j]],this->usedIndexesInTable[i],this->usedIndexesInTable[j],this->usedIndexesInTable.size());
-      if(distance>separation){
-        cout << endl << endl << "degrees between " << this->table[this->usedIndexesInTable[i]]->key << " and " << this->table[this->usedIndexesInTable[j]]->key << " is " << distance << flush;
-        return false;
+      // cout << "\tand " << this->table[this->usedIndexesInTable[j]]->key << flush;
+      // cout << endl;
+      if(this->table[this->usedIndexesInTable[i]]->knownShortestPaths.find(this->table[this->usedIndexesInTable[j]]->key) ==  this->table[this->usedIndexesInTable[i]]->knownShortestPaths.end()){
+        ppp theoryTrue = Dijkstra(separation,this->table[this->usedIndexesInTable[/*i*/0]],this->table[this->usedIndexesInTable[/*j*/0]],this->usedIndexesInTable[i],this->usedIndexesInTable[j],this->usedIndexesInTable.size()/*,separation*/);
+        if(/*distance>separation*/!theoryTrue.first.first){
+          cout << endl << endl << "degrees between " << /*this->table[this->usedIndexesInTable[i]]->key*/this->table[theoryTrue.second.first]->key << " and " << /*this->table[this->usedIndexesInTable[j]]->key*/this->table[theoryTrue.second.second]->key << " is " << theoryTrue.first.second << flush;
+          return false;
+        }
       }
+      // else
+        // cout << "FALSE!" << endl;
     }
-    if(i+1==this->usedIndexesInTable.size())
-      cout << "\t...and NONE" << endl;
+    // if(i+1==this->usedIndexesInTable.size())
+      // cout << "\t...and NONE" << endl;
   }
   // string o = "gus";
   // string e = "fernanda";
@@ -146,8 +150,9 @@ struct HashTable::compare{
   }
 };
 
-int HashTable::Dijkstra(Vertice* origin, Vertice* end,int indexOrigin,int indexEnd, int nodes){
+ppp HashTable::Dijkstra(int separation, Vertice* origin, Vertice* end,int indexOrigin,int indexEnd, int nodes){
   // cout << "\n\n\n--------------DIJKSTRA-----------------------" << endl;
+  // cout << "checking " << this->table[indexOrigin]->key << " with " << this->table[indexEnd]->key << endl;
   priority_queue< pii, vector<pii>, compare > Q;
   int D[this->m];
   bool F[this->m];
@@ -158,6 +163,7 @@ int HashTable::Dijkstra(Vertice* origin, Vertice* end,int indexOrigin,int indexE
     // cout << "INF to: " << usedIndexesInTable[i] << endl;
     D[this->usedIndexesInTable[i]] = INF;
     F[this->usedIndexesInTable[i]] = false;
+    this->table[this->usedIndexesInTable[i]]->knownShortestPaths.clear();
   }
   D[indexOrigin] = 0;
   Q.push(pii(indexOrigin,0));
@@ -195,18 +201,39 @@ int HashTable::Dijkstra(Vertice* origin, Vertice* end,int indexOrigin,int indexE
   // for(i=1; i<=nodes; i++){
     // cout << "Node " << i << ", min weight = " << D[i] << "     " << flush;
     // printf("Node %d, min weight = %d     ", i, D[i]);
-    cout << "\t\tpath: " << flush;
-    cout << this->table[path[indexEnd][0]]->key << flush;
-    for(int j=1; j<path[indexEnd].size(); j++){
-      cout << "->" << this->table[path[indexEnd][j]]->key << flush;
+
+  // cout << this->table[indexOrigin]->key << " path to..." << endl;
+  for(int i=0; i<this->usedIndexesInTable.size(); i++){
+    if(D[usedIndexesInTable[i]] > separation)
+      return ppp( pbi(false,D[usedIndexesInTable[i]]), pii(indexOrigin,usedIndexesInTable[i]) );
+    // cout << this->table[usedIndexesInTable[i]]->key << endl;
+    // cout << "\t" << this->table[path[indexEnd][0]]->key << flush;
+    for(int j=1; j<path[usedIndexesInTable[i]].size(); j++){
+      // cout << "->" << this->table[path[usedIndexesInTable[i]][j]]->key << flush;
     }
-    cout << "\tdistance:" << D[indexEnd] << endl;
-  // }
-  return D[indexEnd];
+    // cout << endl << "\tdistance:" << D[usedIndexesInTable[i]] << endl;
+    for(int j=1; j<path[usedIndexesInTable[i]].size()-1; j++){
+      // cout << "\n\t" << this->table[path[usedIndexesInTable[i]][j]]->key << " with " << flush;
+      for(int k=j+1; k<path[usedIndexesInTable[i]].size(); k++){
+        // cout << this->table[path[usedIndexesInTable[i]][k]]->key << "("<<k-j<<")," << flush;
+        this->table[path[usedIndexesInTable[i]][k]]->knownShortestPaths[this->table[path[usedIndexesInTable[i]][j]]->key] = k-j;
+        this->table[path[usedIndexesInTable[i]][j]]->knownShortestPaths[this->table[path[usedIndexesInTable[i]][k]]->key] = k-j;
+
+        // if(this->table[path[usedIndexesInTable[i]][k]]->key == "pepe" && this->table[path[usedIndexesInTable[i]][j]]->key == "gus")
+          // cout << "\tfound when " << this->table[indexOrigin]->key << " -- " << this->table[this->usedIndexesInTable[i]]->key << endl;
+        // else if(this->table[path[usedIndexesInTable[i]][j]]->key == "pepe" && this->table[path[usedIndexesInTable[i]][k]]->key == "gus")
+          // cout << "\tfound when " << this->table[indexOrigin]->key << " -- " << this->table[this->usedIndexesInTable[i]]->key << endl;
+      }
+      // cout << endl;
+    }
+  }
+
+  return ppp( pbi(true,D[indexEnd]), pii(indexOrigin,indexEnd) );
 }
 
 void HashTable::printUsersPosition(){
   // cout << "\n\n--------------CURRENT USER POSITIONS-----------------------" << endl;
+  cout << endl;
   for(int i=0; i<this->usedIndexesInTable.size(); i++){
     cout << this->usedIndexesInTable[i] << ": " << this->table[this->usedIndexesInTable[i]]->key << "\t" << endl;
   }

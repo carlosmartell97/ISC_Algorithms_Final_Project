@@ -2,6 +2,8 @@
 #define HASH_TABLE_H_
 
 #define pii pair<int,int>
+#define pbi pair<bool,int>
+#define ppp pair< pbi, pii >
 
 class HashTable{
 private:
@@ -25,7 +27,7 @@ public:
   Vertice* getUser(string key);
   string getPassword(string key);
   bool degreesOfSeparation(int separation);
-  int Dijkstra(Vertice* origin,Vertice* end,int indexOrigin,int indexEnd,int nodes);
+  ppp Dijkstra(int separation,Vertice* origin,Vertice* end,int indexOrigin,int indexEnd,int nodes);
   void printUsersPosition();
   bool contains(string key);
   bool isEmpty() const;

@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 #include "Vertice.cpp"
 #include <queue>
 #include <limits.h>
 // #include <cstdio>
 #include "HashTable.cpp"
-#include <map>
 #include "Grafo.cpp"
 using namespace std;
 
@@ -133,7 +133,7 @@ int main(){
       cin >> intParameter;
       cin >> intParameter2;
       users->makeFriends(users->getUser(stringParameter),users->getUser(stringParameter2),intParameter,intParameter2);
-      cout << stringParameter << " and " << stringParameter2 << " are now friends" << endl;
+      cout << endl << stringParameter << " and " << stringParameter2 << " are now friends" << endl;
     }
     else if(action == "interact"){
       cin >> stringParameter;
@@ -142,7 +142,7 @@ int main(){
       for(int i=0; i<users->getUser(stringParameter)->amigos.size(); i++){
         if(users->getUser(stringParameter)->amigos[i]->key == stringParameter2){
           users->getUser(stringParameter)->interacciones[i] += intParameter;
-          cout << "updated " << stringParameter << "'s friendship with " << users->getUser(stringParameter)->amigos[i]->key << endl;
+          cout << endl << "updated " << stringParameter << "'s friendship with " << users->getUser(stringParameter)->amigos[i]->key << endl;
         }
       }
     }
@@ -152,7 +152,7 @@ int main(){
         users->printUsersPosition();
     }
     else{
-      cout << "unrecognized command" << endl;
+      cout << endl << "unrecognized command" << endl;
     }
   }
   delete users;
