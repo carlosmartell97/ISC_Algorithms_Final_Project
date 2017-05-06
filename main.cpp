@@ -3,8 +3,8 @@
 #include <vector>
 #include <map>
 #include "Vertice.cpp"
-#include <queue>
-#include <limits.h>
+// #include <queue>
+// #include <limits.h>
 // #include <cstdio>
 #include "HashTable.cpp"
 #include "Grafo.cpp"

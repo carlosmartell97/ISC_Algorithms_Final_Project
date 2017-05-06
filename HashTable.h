@@ -9,13 +9,13 @@ class HashTable{
 private:
   int m;
   int size;
-  int MAX_SIZE;
+  // int MAX_SIZE;
   int INF;
   vector<Vertice*> table;
   vector<int> usedIndexesInTable;
   int hash(string key);
   void resize();
-  struct compare;
+  // struct compare;
 public:
   HashTable();
   HashTable(int capacity);
@@ -27,7 +27,7 @@ public:
   Vertice* getUser(string key);
   string getPassword(string key);
   bool degreesOfSeparation(int separation);
-  ppp Dijkstra(int separation,Vertice* origin,Vertice* end,int indexOrigin,int indexEnd,int nodes);
+  ppp floydWarshall(int separation);
   void printUsersPosition();
   bool contains(string key);
   bool isEmpty() const;
