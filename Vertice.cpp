@@ -12,10 +12,11 @@ Vertice::~Vertice(){
   this->interacciones.clear();
 }
 
-Vertice::Vertice(string key,string value,int position){
+Vertice::Vertice(string key,string value,int position,int positionInUsedIndexes){
   this->key = key;
   this->value = value;
   this->positionInTable = position;
+  this->positionInUsedIndexes = positionInUsedIndexes;
 }
 
 /*Vertice**/void Vertice::addFriend(Vertice* amigo,int interaccion){
