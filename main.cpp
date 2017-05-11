@@ -135,6 +135,13 @@ int main(){
       users->makeFriends(users->getUser(stringParameter),users->getUser(stringParameter2),intParameter,intParameter2);
       cout << endl << stringParameter << " and " << stringParameter2 << " are now friends" << endl;
     }
+    else if(action == "follow"){
+      cin >> stringParameter;
+      cin >> stringParameter2;
+      cin >> intParameter;
+      users->follow(users->getUser(stringParameter),users->getUser(stringParameter2),intParameter);
+      cout << endl << stringParameter << " now follows " << stringParameter2 << endl;
+    }
     else if(action == "interact"){
       cin >> stringParameter;
       cin >> stringParameter2;

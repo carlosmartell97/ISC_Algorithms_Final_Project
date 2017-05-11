@@ -72,6 +72,10 @@ void HashTable::makeFriends(Vertice* person,Vertice* person2,int inter,int inter
   person2->addFriend(person,inter2);
 }
 
+void HashTable::follow(Vertice* person,Vertice* person2,int inter){
+  person->addFriend(person2,inter);
+}
+
 string HashTable::remove(string key){
   int pos = this->hash(key);
   int freeSpace = -1;

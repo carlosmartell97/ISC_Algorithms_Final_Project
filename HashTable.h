@@ -23,6 +23,7 @@ public:
   string add(string key,string value);
   void makeFriends(Vertice* person,Vertice* person2,int inter);
   void makeFriends(Vertice* person,Vertice* person2,int inter,int inter2);
+  void follow(Vertice* person,Vertice* person2,int inter);
   string remove(string key);
   Vertice* getUser(string key);
   string getPassword(string key);
