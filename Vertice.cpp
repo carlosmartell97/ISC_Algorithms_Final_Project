@@ -1,4 +1,5 @@
 #include "Vertice.h"
+using namespace std;
 
 Vertice::Vertice(){
   vector<Vertice> amigos;

@@ -3,17 +3,17 @@
 
 class Vertice{
 public:
-  string key;
-  string value;
+  std::string key;
+  std::string value;
   double interaccionesTotal;
   int positionInTable;
   int positionInUsedIndexes;
-  vector<Vertice*> amigos;
-  vector<int> interacciones;
-  map<string,int> knownShortestPaths;
+  std::vector<Vertice*> amigos;
+  std::vector<int> interacciones;
+  std::map<std::string,int> knownShortestPaths;
   // deque<Vertice> history;
   Vertice();
-  Vertice(string key,string value,int position,int positionInUsedIndexes);
+  Vertice(std::string key,std::string value,int position,int positionInUsedIndexes);
   ~Vertice();
   /*Vertice**/void addFriend(Vertice* amigo,int interaccion);
 };
