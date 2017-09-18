@@ -64,3 +64,9 @@ program's response...
 vero and pepe are now friends
 ```
 **To end the program, just type "exit" or "end"**
+
+## Built by:
+
+- Carlos Martell - @carlosmartell97
+- Jesús Álvarez - @chuyalvarez
+- Lucía Velasco - @luciavg
